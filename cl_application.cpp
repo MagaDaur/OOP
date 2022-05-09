@@ -16,7 +16,7 @@ void cl_application::bild_tree_objects() // создание дерева объ
         
         cl_base* found_parent = GetChildByName(parent_name);
         if(found_parent)
-            cl_base* new_child = new cl_base(found_parent, child_name, child_class_num); // создание нового дочернего объекта
+           new cl_base(found_parent, child_name, child_class_num); // создание нового дочернего объекта
     }
     
     while(true)
