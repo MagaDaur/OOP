@@ -24,6 +24,7 @@ public:
     void SetState(int);
     int GetState();
     void PrintChildrenReadiness();
+    int GetLevel();
 
 private:
     std::string name;

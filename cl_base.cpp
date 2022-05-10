@@ -1,5 +1,6 @@
 #include "cl_base.h"
 #include <iostream>
+#include <string>
     
 cl_base::cl_base(cl_base* parent, std::string name) // ДОРАБОТКА
 {
@@ -14,7 +15,6 @@ cl_base::~cl_base()
     for(cl_base* child : children)
     {
         delete child;
-        child = nullptr;
     }
 }
 
@@ -25,7 +25,6 @@ void cl_base::ChangeParent(cl_base* to)
         if(parent->children[i] == this)
         {
             parent->children.erase(parent->children.begin() + i);
-            parent = to;
             parent->AddChild(this);
             return;
         }
@@ -34,52 +33,42 @@ void cl_base::ChangeParent(cl_base* to)
 
 void cl_base::PrintChildren() // ДОРАБОТКА
 {
-    int level = 0;
-    cl_base* parent = GetParent();
-    while(parent)
-    {
-        level++;
-        parent = parent->GetParent();
-    }
-    
     std::cout << std::endl;
-    for(int i = 0; i < level * 4; i++) std::cout << " ";
+    for(int i = 0; i < GetLevel(); i++) std::cout << "    ";
     std::cout << GetName();
     
     for(cl_base* child : children)
+    {
         child->PrintChildren();
+    }
 }
 
 void cl_base::PrintChildrenReadiness() // ДОРАБОТКА
 {
-    int level = 0;
-    cl_base* parent = GetParent();
-    while(parent)
-    {
-        level++;
-        parent = parent->GetParent();
-    }
-    
     std::cout << std::endl;
-    for(int i = 0; i < level * 4; i++) std::cout << " ";
-    std::cout << GetName() << " ";
-    if(GetState()) std::cout << "is ready";
-    else std::cout << "is not ready";
+    for(int i = 0; i < GetLevel(); i++) std::cout << "    ";
+    std::cout << GetName() << (GetState() ? " is ready" : " is not ready");
     
     for(cl_base* child : children)
+    {
         child->PrintChildrenReadiness();
+    }
 }
 
 cl_base* cl_base::GetChildByName(std::string name)
 {
     if(GetName() == name)
+    {
         return this;
+    }
     
     for(cl_base* child : children)
     {
         cl_base* found = child->GetChildByName(name);
         if(found)
+        {
             return found;
+        }
     }
     return nullptr;
 }
@@ -134,5 +123,18 @@ void cl_base::SetState(int state)
     }
     
     this->state = state;
+}
+
+int cl_base::GetLevel()
+{
+    int level = 0;
+    cl_base* parent = GetParent();
+    while(parent)
+    {
+        level++;
+        
+        parent = parent->GetParent();
+    }
+    return level;
 }
 
