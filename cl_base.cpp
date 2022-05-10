@@ -119,15 +119,18 @@ void cl_base::SetState(int state)
         while(parent)
         {
             if(!parent->GetState())
+            {
                 return;
-            
+            }
             parent = parent->GetParent();
         }
     }
     else
     {
         for(cl_base* child : children)
+        {
             child->SetState(state);
+        }
     }
     
     this->state = state;
