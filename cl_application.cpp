@@ -16,7 +16,7 @@ void cl_application::bild_tree_objects() // создание дерева объ
         
         cl_base* found_parent = GetChildByName(parent_name);
         if(found_parent)
-           new cl_base(found_parent, child_name, child_class_num); // создание нового дочернего объекта
+           new cl_base(found_parent, child_name); // создание нового дочернего объекта
     }
     
     while(true)
@@ -24,12 +24,9 @@ void cl_application::bild_tree_objects() // создание дерева объ
         std::string child_name;
         int state_num;
         
-        std::cin >> child_name;
-        
-        if(child_name == "stop")
+        std::cin >> child_name >> state_num;
+        if(!std::cin.good())
             break;
-        
-        std::cin >> state_num;
         
         cl_base* child = GetChildByName(child_name);
         if(child)
@@ -39,7 +36,7 @@ void cl_application::bild_tree_objects() // создание дерева объ
 
 int cl_application::exec_app() // запуск приложения ДОРАБОТКА
 {
-    std::cout << "Object tree" << std::endl;
+    std::cout << "Object tree";
     PrintChildren();
     std::cout << std::endl << "The tree of objects and their readiness";
     PrintChildrenReadiness();

@@ -7,7 +7,7 @@
 class cl_application : public cl_base
 {
 public:
-    cl_application(cl_base* parent, std::string name = "Object_root", int class_num = 1) : cl_base(parent, name, class_num) {}; // ДОРАБОТКА
+    cl_application(cl_base* parent, std::string name = "Object_root") : cl_base(parent, name) {};
     
     void bild_tree_objects();
     int exec_app();

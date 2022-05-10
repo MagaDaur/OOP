@@ -7,7 +7,7 @@
 class cl_base
 {
 public:
-    cl_base(cl_base* parent, std::string name, int class_num); // ДОРАБОТКА
+    cl_base(cl_base* parent, std::string name);
     ~cl_base();
 
     void SetName(std::string);
@@ -31,7 +31,6 @@ private:
     std::vector<cl_base*> children;
     
     // ДОРАБОТКА
-    int class_num;
     int state;
 };
 

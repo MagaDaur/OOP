@@ -1,11 +1,10 @@
 #include "cl_base.h"
 #include <iostream>
     
-cl_base::cl_base(cl_base* parent, std::string name, int class_num) // ДОРАБОТКА
+cl_base::cl_base(cl_base* parent, std::string name) // ДОРАБОТКА
 {
     SetName(name);
     this->parent = parent;
-    this->class_num = class_num;
     if(parent)
         parent->AddChild(this);
 }
@@ -126,7 +125,7 @@ void cl_base::SetState(int state)
         }
     }
     else
-    { 
+    {
         for(cl_base* child : children)
             child->SetState(state);
     }
